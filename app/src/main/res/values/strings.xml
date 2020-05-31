@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">水龙头</string>
+    <string name="app_name">水阀</string>
     <string name="chengxuduan">程 序 段</string>
     <string name="shengyushijian">剩余时间</string>
     <string name="dangqianwendu">当前温度</string>

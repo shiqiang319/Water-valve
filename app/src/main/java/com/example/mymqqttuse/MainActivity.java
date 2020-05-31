@@ -4,6 +4,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
 import android.annotation.SuppressLint;
+import android.content.IntentFilter;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.util.Log;
@@ -28,13 +29,22 @@ public class MainActivity extends AppCompatActivity {
 
     private Timer timerSubscribeTopic = null;
     private TimerTask TimerTaskSubscribeTopic = null;
-    private  boolean b=true;
+    private IntentFilter intentFilter;
+    private NetworkChange networkChange;
 
     @SuppressLint("ResourceAsColor")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        /**
+         * 监听网络状态
+         */
+        intentFilter=new IntentFilter();
+        intentFilter.addAction("android.net.conn.CONNECTIVITY_CHANGE");
+        networkChange=new NetworkChange();
+        registerReceiver(networkChange,intentFilter);
 
         final Spinner spinner=findViewById(R.id.spi);
         final TextView faqianyali =findViewById(R.id.tv_fqyl);
@@ -157,9 +167,6 @@ public class MainActivity extends AppCompatActivity {
         spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-//                if (b){
-//                    view.setVisibility(View.INVISIBLE);
-//                }else {
                     String cardNumber = MainActivity.this.getResources().getStringArray(R.array.ctype)[position];
                     if (cardNumber.equals("0")){
                         return;
@@ -177,9 +184,6 @@ public class MainActivity extends AppCompatActivity {
                             ZhilingJson(x,112,1),
                             0,
                             false);
-//                }
-//                b=false;
-
             }
 
             @Override
@@ -316,4 +320,14 @@ public class MainActivity extends AppCompatActivity {
         stopTimerSubscribeTopic();
 
     }
+    /**
+     * 动态注册接受者，记得取消注册
+     */
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        unregisterReceiver(networkChange);
+    }
+
+
 }

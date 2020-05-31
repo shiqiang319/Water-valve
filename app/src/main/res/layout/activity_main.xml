@@ -101,14 +101,12 @@
                 android:id="@+id/btn_kdjia"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="开度 +"
                 android:textSize="30sp"
                 android:layout_marginLeft="60dp"/>
             <Button
                 android:id="@+id/btn_kdjian"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="开度 -"
                 android:textSize="30sp"
                 android:layout_marginLeft="200dp"/>
         </RelativeLayout>
