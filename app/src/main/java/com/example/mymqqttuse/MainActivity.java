@@ -328,6 +328,19 @@ public class MainActivity extends AppCompatActivity {
         super.onDestroy();
         unregisterReceiver(networkChange);
     }
+    @Override
+    protected void onStart(){
+        super.onStart();
+        MyMqttClient.sharedCenter().setSendData(
+                //"/sys/a1S917F388O/wenxin/thing/event/property/post",
+                "/a1yPGkxyv1q/SimuApp/user/update",
+                //"{\"method\":\"thing.event.property.post\",\"id\":\"1111\",\"params\":{\"temperature\":99,\"humidity\":99},\"version\":\"1.0.0\"}",
+                "{\"method\":\"thing.event.property.post\",\"id\":\"1111\",\"params\":{\"Id\":1,\"Cmd\":112,\"Para\":[1]},\"version\":\"1.0.0\"}",
+                //jsonObject.toString(),
+                0,
+                false);
+        Log.e("活动开始","已发送查询指令");
+    }
 
 
 }
